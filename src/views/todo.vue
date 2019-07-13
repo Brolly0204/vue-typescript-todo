@@ -23,18 +23,22 @@ import { Component, Vue } from 'vue-property-decorator';
 import TodoItem from '@/components/todo-item'
 import { State, Mutation } from 'vuex-class'
 
+type UpdateListType = (arg: object) => void
+type HnadleCompleteType = (index: number) => void
+
 @Component({
   name: 'TodoPage',
   components: {
     TodoItem,
   },
 })
+
 export default class Todo extends Vue {
   @State('todoList') public list!: object[];
 
-  @Mutation('updateTodoList') public updateList!: (arg: object) => void
+  @Mutation('updateTodoList') public updateList!: UpdateListType
 
-  @Mutation('todoItemComplate') public handleComplete!: (index: number) => void
+  @Mutation('todoItemComplate') public handleComplete!: HnadleCompleteType
 
   public edittingIndex = -1;
   public handleSave({ index, content }: {index: number, content: string}) {
